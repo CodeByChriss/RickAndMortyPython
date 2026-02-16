@@ -7,7 +7,7 @@ class location:
     # dimension = String
     # residents = List (of URLs)
     # url = String (url)
-    # created = String
+    # created = String (tiempo en el que fue creado en la base de datos)
 
     def __init__(self, id, name, type, dimension, residents, url, created):
         self.id = id
@@ -17,3 +17,11 @@ class location:
         self.residents = residents
         self.url = url
         self.created = created
+
+    def obtenerCantidadCharacters(self):
+        return len(self.residents)
+
+    def obtenerFechaRegistro(self):
+        # tiene este formato: 2017-12-29T18:51:29.693Z
+        fecha = self.created.split("T") # divido la fecha de la hora
+        return fecha[0]
