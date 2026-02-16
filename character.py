@@ -10,6 +10,8 @@ class character:
     # origin = {"name":String,"url":String}
     # location = {"name":String,"url":String}
     # image = String (es una url)
+    # episode = [] (de urls)
+    # url = String (url de la información de este character)
     # created = String
 
     def __init__(self, id, name, status, species, type, gender, origin, location, image, episode, url, created):

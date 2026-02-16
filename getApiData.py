@@ -1,5 +1,4 @@
 import requests
-import math # lo usaré para redondear a la alza
 import character
 import location
 import episode
@@ -58,8 +57,7 @@ class getApiData:
                 # (lo ofrece el propio diccionario que devuelve la api)
                 datos = opcionResponse.json()
                 info = datos['info']
-                cnt = info['count']
-                cntPages = math.ceil(cnt/20) # Cada página tiene 20 entradas por lo que la cantidad de páginas es cnt (total de entradas que hay en todas las páginas) / 20 (entradas por página)
+                cntPages = info['pages']
                 
                 # Preguntamos la cantidad de páginas que quiere guardar
                 print(f"Hay un total de {cntPages} y cada página contiene 20 registros de {clave}. ¿Cuántas quieres obtener?: ")
