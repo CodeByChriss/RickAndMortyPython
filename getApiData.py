@@ -62,11 +62,12 @@ class getApiData:
                 cntPages = math.ceil(cnt/20) # Cada página tiene 20 entradas por lo que la cantidad de páginas es cnt (total de entradas que hay en todas las páginas) / 20 (entradas por página)
                 
                 # Preguntamos la cantidad de páginas que quiere guardar
-                print(f"Hay un total de {cntPages}. ¿Cuántas quieres obtener?: ")
+                print(f"Hay un total de {cntPages} y cada página contiene 20 registros de {clave}. ¿Cuántas quieres obtener?: ")
                 obtener = self.obtenerOpcion(1,cntPages)
 
                 # Pasamos los datos actuales a clases y a la lista correspondiente
                 self.guardarDatos(clave,datos['results'])
+                print(f"Página 1/{obtener} cargada correctamente.")
 
                 # Repetimos el proceso para cada página que el usuario haya introducido
                 if obtener > 1: # Ya que la primera página se obtiene si o si
@@ -81,6 +82,8 @@ class getApiData:
 
                                 # igual que antes, guardamos los datos
                                 self.guardarDatos(clave, paginaDatos['results'])
+
+                                print(f"Página {i}/{obtener} cargada correctamente.")
                             else:
                                 print(f"Error al obtener la información de la página {i}. Código de error: {opcionResponse.status_code}")
                         else:
@@ -103,11 +106,34 @@ class getApiData:
         match nombreLista:
             case "characters":
                 for entrada in listaDatos:
-                    self.characters.append(character.characters("test"))
+                    newCharacter = character.character(
+                        entrada['id'], entrada['name'], entrada['status'], entrada['species'], 
+                        entrada['type'], entrada['gender'], entrada['origin'], entrada['location'], 
+                        entrada['image'], entrada['episode'], entrada['url'], entrada['created']
+                    )
+                    self.characters.append(newCharacter)
             case "locations":
                 for entrada in listaDatos:
-                    self.locations.append(location.locations("test"))
+                    newLocation = location.location(
+                        entrada['id'], 
+                        entrada['name'], 
+                        entrada['type'], 
+                        entrada['dimension'], 
+                        entrada['residents'], 
+                        entrada['url'], 
+                        entrada['created']
+                    )
+                    self.locations.append(newLocation)
             case "episodes":
                 for entrada in listaDatos:
-                    self.episodes.append(episode.episodes("test"))
+                    newEpisode = episode.episode(
+                        entrada['id'], 
+                        entrada['name'], 
+                        entrada['air_date'], 
+                        entrada['episode'], 
+                        entrada['characters'], 
+                        entrada['url'], 
+                        entrada['created']
+                    )
+                    self.episodes.append(newEpisode)
             case _: print(f"Error, la lista {nombreLista} no existe.")
