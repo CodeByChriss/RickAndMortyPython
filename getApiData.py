@@ -1,4 +1,5 @@
 import requests
+import main
 import character
 import location
 import episode
@@ -23,26 +24,16 @@ class getApiData:
                 return
             
             i = 1
-            print("Las opciones disponibles son:")
+            print("╔═══════════════ Opciones disponibles ═══════════════╗")
             for clave in opciones:
-                print(f"\t{i}. {clave}")
+                print(f"╠ {i}. {clave}.")
                 i += 1
+            print("╚════════════════════════════════════════════════════╝")
             
-            return self.obtenerOpcion(1,i-1)
+            return main.obtenerOpcion(1,i-1)
         else:
             print(f"Ha ocurrido un error al obtener la información de la API. Código de error: {self.response.status_code}")
             return None
-
-    def obtenerOpcion(self,min,max):
-        while(True):
-            try:
-                num = int(input("Selecciona una opción: "))
-                if num < min or num > max:
-                    print("La opción introducida no existe.")
-                else:
-                    return num
-            except ValueError:
-                print("Debe ser un número.")
 
     # Obtenemos los datos de la opción elegida por el usuario (1 -> characters, 2 -> locations, 3 -> episodes)
     def obtenerDatos(self,opcion):
