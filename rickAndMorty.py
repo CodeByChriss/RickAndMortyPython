@@ -145,7 +145,47 @@ class rickAndMorty:
                     print("No hay contenido de ese tipo.")
 
     def buscarPorID(self):
-        pass
+        print("Selecciona el tipo de dato por el que quieres buscar:")
+        apiData = getApiData.getApiData()
+        opt = apiData.mostrarOpciones()
+
+        match opt:
+            case 1:
+                if self.characters:
+                    lon = len(self.characters)
+                    print(f"Introduce el ID que quieres buscar. El ID mínimo es 1 y el máximo es {lon}.")
+                    idBuscar = main.obtenerOpcion(1,lon) # el primer ID es 1
+                    for character in self.characters:
+                        if character.id == idBuscar:
+                            character.mostrarDatos()
+                            return
+                    print("Character no encontrado.")
+                else:
+                    print("No hay contenido de ese tipo.")
+            case 2:
+                if self.locations:
+                    lon = len(self.locations)
+                    print(f"Introduce el ID que quieres buscar. El ID mínimo es 1 y el máximo es {lon}.")
+                    idBuscar = main.obtenerOpcion(1,lon) # el primer ID es 1
+                    for location in self.locations:
+                        if location.id == idBuscar:
+                            location.mostrarDatos()
+                            return
+                    print("Location no encontrada.")
+                else:
+                    print("No hay contenido de ese tipo.")
+            case 3:
+                if self.episodes:
+                    lon = len(self.episodes)
+                    print(f"Introduce el ID que quieres buscar. El ID mínimo es 1 y el máximo es {lon}.")
+                    idBuscar = main.obtenerOpcion(1,lon) # el primer ID es 1
+                    for episode in self.episodes:
+                        if episode.id == idBuscar:
+                            episode.mostrarDatos()
+                            return
+                    print("Episode no encontrado.")
+                else:
+                    print("No hay contenido de ese tipo.")
 
     def obtenerCantidadCharacters(self):
         return len(self.characters)
