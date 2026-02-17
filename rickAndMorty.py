@@ -1,6 +1,9 @@
 import main
 import getApiData
 import json
+import character
+import location
+import episode
 
 class rickAndMorty:
     
@@ -42,16 +45,58 @@ class rickAndMorty:
                 print("Error, datos no guardados.")
 
     def cargarFichero(self):
+        print("Selecciona el tipo de dato que quieres cargar (este proceso no sobreescribe los datos actuales):")
+        apiData = getApiData.getApiData()
+        opt = apiData.mostrarOpciones()
+
         nombreFichero = input("Dime el nombre del fichero que quieres cargar: ")
         try:
             with open(nombreFichero, "r", encoding="utf-8") as f:
                 datos = json.load(f)
+
+            for dato in datos:
+                try:
+                    match opt:
+                        case 1: # si es un character
+                            newCharacter = character.character(
+                                dato['id'], dato['name'], dato['status'], dato['species'], 
+                                dato['type'], dato['gender'], dato['origin'], dato['location'], 
+                                dato['image'], dato['episode'], dato['url'], dato['created']
+                            )
+                            self.characters.append(newCharacter)
+                        case 2:
+                            newLocation = location.location(
+                                dato['id'], 
+                                dato['name'], 
+                                dato['type'], 
+                                dato['dimension'], 
+                                dato['residents'], 
+                                dato['url'], 
+                                dato['created']
+                            )
+                            self.locations.append(newLocation)
+                        case 3:
+                            newEpisode = episode.episode(
+                                dato['id'], 
+                                dato['name'], 
+                                dato['air_date'], 
+                                dato['episode'], 
+                                dato['characters'], 
+                                dato['url'], 
+                                dato['created']
+                            )
+                            self.episode.append(newEpisode)
+                except KeyError:
+                    continue
+
+            print("Fichero cargado correctamente.")
         except FileNotFoundError:
             print("ERROR: Fichero no encontrado.")
         except json.JSONDecodeError:
             print("ERROR: El fichero JSON contiene errores.")
 
     def guardarFichero(self):
+        print("Selecciona el tipo de dato que quieres guardar:")
         apiData = getApiData.getApiData()
         opt = apiData.mostrarOpciones()
         

@@ -2,6 +2,7 @@ import rickAndMorty
 
 # RESPOSITORIO DE GITHUB: https://github.com/CodeByChriss/RickAndMortyPython
 
+# lo dejo en el main porque lo usa más de una clase
 def obtenerOpcion(min,max):
     while(True):
         try:
@@ -18,11 +19,6 @@ def main():
     rickMorty.iniciar()
 
     print("¡Hasta la próxima!")
-    # api = getApiData.getApiData()
-    # opcionElegida = api.mostrarOpciones()
-
-    # if opcionElegida: # Si no es None
-    #     api.obtenerDatos(opcionElegida)
 
 if __name__ == '__main__':
     main()
