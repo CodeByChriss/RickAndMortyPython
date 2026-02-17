@@ -45,7 +45,7 @@ class rickAndMorty:
         nombreFichero = input("Dime el nombre del fichero que quieres cargar: ")
         try:
             with open(nombreFichero, "r", encoding="utf-8") as f:
-                datos = json.load(nombreFichero)
+                datos = json.load(f)
         except FileNotFoundError:
             print("ERROR: Fichero no encontrado.")
         except json.JSONDecodeError:
@@ -56,7 +56,7 @@ class rickAndMorty:
         datos = []
         # No hace falta usar try-except ya que Python por defecto crea el fichero si no existe
         with open(nombreFichero, "w", encoding="utf-8") as f:
-            json.dump(datos,nombreFichero,indent=4,ensure_ascii=False)
+            json.dump(datos,f,indent=4,ensure_ascii=False)
 
     def visualizarDatos(self):
         pass
