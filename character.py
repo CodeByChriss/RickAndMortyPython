@@ -36,6 +36,7 @@ class character:
         fecha = self.created.split("T") # divido la fecha de la hora
         return fecha[0]
     
+    # Lo convertimos a un diccionario para guardarlo en un fichero JSON
     def obtenerFormatoDiccionario(self):
         return {
             "id": self.id,
@@ -52,6 +53,7 @@ class character:
             "created": self.created
         }
     
+    # Lo mostramos por pantalla al usuario de una forma más estética
     def mostrarDatos(self):
         separadorPrincipal = "=" * 50
         separadorSecundario = "-" * 50

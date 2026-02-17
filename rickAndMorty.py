@@ -5,6 +5,9 @@ import character
 import location
 import episode
 
+
+# Clase que lleva la lógica principal de la aplicación y que contiene las variables
+# He creado esta clase para practicar más con clases y no dejar las variables como globales en el main.py
 class rickAndMorty:
     
     def __init__(self):
@@ -30,6 +33,7 @@ class rickAndMorty:
         print("╠ 4. Volver atrás.")
         print("╚══════════════════════════════════════════════════════════════════════════╝")
 
+    # Obtenemos los datos haciendo uso de la clase getApiData
     def obtenerDatosAPI(self):
         apiData = getApiData.getApiData()
         opt = apiData.mostrarOpciones()
@@ -45,15 +49,18 @@ class rickAndMorty:
                 print("Error, datos no guardados.")
 
     def cargarFichero(self):
+        # Se pregunta al usuario que tipo de dato es el que contiene el fichero
         print("Selecciona el tipo de dato que quieres cargar (este proceso no sobreescribe los datos actuales):")
         apiData = getApiData.getApiData()
         opt = apiData.mostrarOpciones()
 
+        # Se pregunta por el nombre del fichero y se lee del mismo
         nombreFichero = input("Dime el nombre del fichero que quieres cargar: ")
         try:
             with open(nombreFichero, "r", encoding="utf-8") as f:
                 datos = json.load(f)
 
+            # Guardamos los datos creando nuevas instancias de las clases y agregandolas a las listas actuales
             for dato in datos:
                 try:
                     match opt:
@@ -96,12 +103,14 @@ class rickAndMorty:
             print("ERROR: El fichero JSON contiene errores.")
 
     def guardarFichero(self):
+        # Preguntamos al usuario por el tipo de dato que quiere guardar (character, location o episode)
         print("Selecciona el tipo de dato que quieres guardar:")
         apiData = getApiData.getApiData()
         opt = apiData.mostrarOpciones()
         
         nombreFichero = input("Dime el nombre del fichero en el que lo quieres guardar: ")
 
+        # Por defecto datos es una lista vacía y se llena según la opción elegida
         datos = []
         match opt:
             case 1:
@@ -111,6 +120,7 @@ class rickAndMorty:
             case 3:
                 datos = self.episodes
 
+        # Convertimos todos los objetos a diccionario para luego guardarlos
         datosDict = [d.obtenerFormatoDiccionario() for d in datos]
 
         # No hace falta usar try-except ya que Python por defecto crea el fichero si no existe
@@ -120,10 +130,12 @@ class rickAndMorty:
         print("Datos guardados con éxito.")
 
     def visualizarDatos(self):
+        # Preguntamos al usuario por el tipo de dato que quiere visualizar
         print("Selecciona el tipo de datos que quieres visualizar:")
         apiData = getApiData.getApiData()
         opt = apiData.mostrarOpciones()
 
+        # Según el tipo de datos seleccionado por el usuario se muestra una lista u otra.
         match opt:
             case 1:
                 if self.characters:
@@ -145,10 +157,12 @@ class rickAndMorty:
                     print("No hay contenido de ese tipo.")
 
     def buscarPorID(self):
+        # Preguntamos al usuario por el tipo de dato que quiere buscar
         print("Selecciona el tipo de dato por el que quieres buscar:")
         apiData = getApiData.getApiData()
         opt = apiData.mostrarOpciones()
 
+        # Según el tipo de dato se usa una lista u otra para buscar por su ID
         match opt:
             case 1:
                 if self.characters:
@@ -203,30 +217,31 @@ class rickAndMorty:
         print(f"╠ Episodes: {self.obtenerCantidadEpisodes()}")
         print("╚═══════════════════════════════════════════════════════════╝")
 
+    # Función principal de la clase que maneja toda la lógica de la aplicació
     def iniciar(self):
         opt = -1
         while opt != 5:
             self.mostrarMenuPrincipal()
             opt = main.obtenerOpcion(1,5)
             match opt:
-                case 1:
+                case 1: # Obtener datos de la API
                     self.obtenerDatosAPI()
-                case 2:
+                case 2: # Cargar datos de un fichero JSON
                     self.cargarFichero()
-                case 3:
+                case 3: # Exportar los datos a un fichero JSON
                     self.guardarFichero()
-                case 4:
+                case 4: # Interactuar con los datos
                     self.mostrarMenuInteractuarDatos()
                     interactuarOpt = main.obtenerOpcion(1,4)
                     match interactuarOpt:
-                        case 1:
+                        case 1: # Visualizar todos los datos
                             self.visualizarDatos()
-                        case 2:
+                        case 2: # Buscar por ID
                             self.buscarPorID()
-                        case 3:
+                        case 3: # Ver la cantidad de datos que tenemos por tipo
                             self.mostrarCantidades()
-                        case 4:
+                        case 4: # Volver atrás
                             continue
-                case 5:
+                case 5: # Salir de la aplicación
                     continue
         print("Aplicación cerrada correctamente.")
