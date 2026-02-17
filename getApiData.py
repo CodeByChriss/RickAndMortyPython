@@ -8,8 +8,11 @@ class getApiData:
 
     def __init__(self):
         # Documentación de la API: https://rickandmortyapi.com/documentation
-        response = requests.get("https://rickandmortyapi.com/api")
-        self.response = response
+        try:
+            response = requests.get("https://rickandmortyapi.com/api")
+            self.response = response
+        except requests.exceptions.RequestException as e:
+                print("Error en la conexión:", e)
 
     # Mostramos las opciones que nos da la API
     def mostrarOpciones(self):

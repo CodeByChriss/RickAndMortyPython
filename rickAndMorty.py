@@ -92,7 +92,7 @@ class rickAndMorty:
                                 dato['url'], 
                                 dato['created']
                             )
-                            self.episode.append(newEpisode)
+                            self.episodes.append(newEpisode)
                 except KeyError:
                     continue
 
@@ -156,6 +156,14 @@ class rickAndMorty:
                 else:
                     print("No hay contenido de ese tipo.")
 
+    def obtenerID(self, texto):
+        while(True):
+            try:
+                num = int(input(texto))
+                return num
+            except ValueError:
+                print("Debe ser un número.")
+
     def buscarPorID(self):
         # Preguntamos al usuario por el tipo de dato que quiere buscar
         print("Selecciona el tipo de dato por el que quieres buscar:")
@@ -166,9 +174,7 @@ class rickAndMorty:
         match opt:
             case 1:
                 if self.characters:
-                    lon = len(self.characters)
-                    print(f"Introduce el ID que quieres buscar. El ID mínimo es 1 y el máximo es {lon}.")
-                    idBuscar = main.obtenerOpcion(1,lon) # el primer ID es 1
+                    idBuscar = self.obtenerID("Introduce el ID que quieres buscar: ")
                     for character in self.characters:
                         if character.id == idBuscar:
                             character.mostrarDatos()
@@ -178,9 +184,7 @@ class rickAndMorty:
                     print("No hay contenido de ese tipo.")
             case 2:
                 if self.locations:
-                    lon = len(self.locations)
-                    print(f"Introduce el ID que quieres buscar. El ID mínimo es 1 y el máximo es {lon}.")
-                    idBuscar = main.obtenerOpcion(1,lon) # el primer ID es 1
+                    idBuscar = self.obtenerID("Introduce el ID que quieres buscar: ")
                     for location in self.locations:
                         if location.id == idBuscar:
                             location.mostrarDatos()
@@ -190,9 +194,7 @@ class rickAndMorty:
                     print("No hay contenido de ese tipo.")
             case 3:
                 if self.episodes:
-                    lon = len(self.episodes)
-                    print(f"Introduce el ID que quieres buscar. El ID mínimo es 1 y el máximo es {lon}.")
-                    idBuscar = main.obtenerOpcion(1,lon) # el primer ID es 1
+                    idBuscar = self.obtenerID("Introduce el ID que quieres buscar: ")
                     for episode in self.episodes:
                         if episode.id == idBuscar:
                             episode.mostrarDatos()
