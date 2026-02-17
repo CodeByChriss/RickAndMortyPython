@@ -36,3 +36,18 @@ class episode:
             "url": self.url,
             "created": self.obtenerFechaRegistro()
         }
+    
+    def mostrarDatos(self):
+        separadorPrincipal = "=" * 50
+        separadorSecundario = "-" * 50
+        print(separadorPrincipal)
+        print(f"DETALLES DEL EPISODIO: {self.name.upper()}")
+        print(separadorSecundario)
+        print(f"ID:             {self.id}")
+        print(f"Código:         {self.episode}")
+        print(f"Fecha Aire:     {self.air_date}")
+        print(separadorSecundario)
+        print(f"Personajes:     {self.obtenerCantidadCharacters()} en pantalla")
+        print(f"URL Info:       {self.url}")
+        print(f"Registrado:     {self.obtenerFechaRegistro()}")
+        print(separadorPrincipal)

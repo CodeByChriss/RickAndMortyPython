@@ -36,3 +36,18 @@ class location:
             "url": self.url,
             "created": self.created
         }
+    
+    def mostrarDatos(self):
+        separadorPrincipal = "=" * 50
+        separadorSecundario = "-" * 50
+        print(separadorPrincipal)
+        print(f"DATOS DE LOCALIZACIÓN: {self.name.upper()}")
+        print(separadorSecundario)
+        print(f"ID:        {self.id}")
+        print(f"Tipo:      {self.type if self.type else 'N/A'}")
+        print(f"Dimensión: {self.dimension if self.dimension else 'Unknown'}")
+        print(separadorSecundario)
+        print(f"Residentes Totales: {self.obtenerCantidadCharacters()}")
+        print(f"URL Info:           {self.url}")
+        print(f"Registrado:         {self.obtenerFechaRegistro()}")
+        print(separadorPrincipal)

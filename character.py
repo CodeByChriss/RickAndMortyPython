@@ -51,3 +51,25 @@ class character:
             "url": self.url,
             "created": self.created
         }
+    
+    def mostrarDatos(self):
+        separadorPrincipal = "=" * 50
+        separadorSecundario = "-" * 50
+        print(separadorPrincipal)
+        print(f"FICHA DE PERSONAJE: {self.name.upper()}")
+        print(separadorSecundario)
+        print(f"ID:        {self.id}")
+        print(f"Imagen:    {self.image}")
+        print(f"Estado:    {self.status}")
+        print(f"Especie:   {self.species}")
+        print(f"Tipo:      {self.type if self.type else 'N/A'}")
+        print(f"Género:    {self.gender}")
+        print(separadorSecundario)
+        print(f"Origen:    {self.origin['name']}")
+        print(f"Ubicación: {self.location['name']}")
+        print(separadorSecundario)
+        print(f"Apariciones: {self.obtenerCantidadEpisodios()} episodios")
+        print(f"Registrado:  {self.obtenerFechaRegistro()}")
+        print(separadorSecundario)
+        print(f"Toda la información:  {self.url}")
+        print(separadorPrincipal)

@@ -120,7 +120,29 @@ class rickAndMorty:
         print("Datos guardados con éxito.")
 
     def visualizarDatos(self):
-        pass
+        print("Selecciona el tipo de datos que quieres visualizar:")
+        apiData = getApiData.getApiData()
+        opt = apiData.mostrarOpciones()
+
+        match opt:
+            case 1:
+                if self.characters:
+                    for character in self.characters:
+                        character.mostrarDatos()
+                else:
+                    print("No hay contenido de ese tipo.")
+            case 2:
+                if self.locations:
+                    for location in self.locations:
+                        location.mostrarDatos()
+                else:
+                    print("No hay contenido de ese tipo.")
+            case 3:
+                if self.episodes:
+                    for episode in self.episodes:
+                        episode.mostrarDatos()
+                else:
+                    print("No hay contenido de ese tipo.")
 
     def buscarPorID(self):
         pass
