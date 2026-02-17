@@ -35,3 +35,19 @@ class character:
         # tiene este formato: 2017-12-29T18:51:29.693Z
         fecha = self.created.split("T") # divido la fecha de la hora
         return fecha[0]
+    
+    def obtenerFormatoDiccionario(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "status": self.status,
+            "species": self.species,
+            "type": self.type,
+            "gender": self.gender,
+            "origin": self.origin,
+            "location": self.location,
+            "image": self.image,
+            "episode": self.episode,
+            "url": self.url,
+            "created": self.created
+        }

@@ -25,3 +25,14 @@ class episode:
         # tiene este formato: 2017-12-29T18:51:29.693Z
         fecha = self.created.split("T") # divido la fecha de la hora
         return fecha[0]
+    
+    def obtenerFormatoDiccionario(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "air_date": self.air_date,
+            "episode": self.episode,
+            "characters": self.characters,
+            "url": self.url,
+            "created": self.obtenerFechaRegistro()
+        }

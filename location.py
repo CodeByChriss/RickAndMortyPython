@@ -25,3 +25,14 @@ class location:
         # tiene este formato: 2017-12-29T18:51:29.693Z
         fecha = self.created.split("T") # divido la fecha de la hora
         return fecha[0]
+    
+    def obtenerFormatoDiccionario(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "type": self.type,
+            "dimension": self.dimension,
+            "residents": self.residents,
+            "url": self.url,
+            "created": self.created
+        }

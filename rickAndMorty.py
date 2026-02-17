@@ -52,11 +52,27 @@ class rickAndMorty:
             print("ERROR: El fichero JSON contiene errores.")
 
     def guardarFichero(self):
+        apiData = getApiData.getApiData()
+        opt = apiData.mostrarOpciones()
+        
         nombreFichero = input("Dime el nombre del fichero en el que lo quieres guardar: ")
+
         datos = []
+        match opt:
+            case 1:
+                datos = self.characters
+            case 2:
+                datos = self.locations
+            case 3:
+                datos = self.episodes
+
+        datosDict = [d.obtenerFormatoDiccionario() for d in datos]
+
         # No hace falta usar try-except ya que Python por defecto crea el fichero si no existe
         with open(nombreFichero, "w", encoding="utf-8") as f:
-            json.dump(datos,f,indent=4,ensure_ascii=False)
+            json.dump(datosDict,f,indent=4,ensure_ascii=False)
+
+        print("Datos guardados con éxito.")
 
     def visualizarDatos(self):
         pass
