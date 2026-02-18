@@ -29,8 +29,9 @@ class rickAndMorty:
         print("╔═══════════════════ Opciones Interactuar con los datos ═══════════════════╗")
         print("╠ 1. Visualizar los datos.")
         print("╠ 2. Buscar por ID.")
-        print("╠ 3. Ver cantidad de datos que tenemos.")
-        print("╠ 4. Volver atrás.")
+        print("╠ 3. Filtrar datos.")
+        print("╠ 4. Ver cantidad de datos que tenemos.")
+        print("╠ 5. Volver atrás.")
         print("╚══════════════════════════════════════════════════════════════════════════╝")
 
     # Obtenemos los datos haciendo uso de la clase getApiData
@@ -219,6 +220,91 @@ class rickAndMorty:
         print(f"╠ Episodes: {self.obtenerCantidadEpisodes()}")
         print("╚═══════════════════════════════════════════════════════════╝")
 
+    def filtrar(self):
+        # Preguntamos al usuario por el tipo de dato que quiere filtrar
+        print("Selecciona el tipo de datos que quieres filtrar:")
+        apiData = getApiData.getApiData()
+        opt = apiData.mostrarOpciones()
+
+        # Dependiendo del tipo de dato por el que quiera filtrar le permitimos filtrar por una opción u otra.
+        match opt:
+            case 1: # Characters
+                if self.characters:
+                    num = int(input("Introduce la opción por la que quieres filtrar ( 1 -> Status ('Alive','Dead','unkown'), 2 -> species ('Human',etc) ): "))
+                    filtro = input(f"Introduce el valor por el que quieres filtrar en el campo {"status" if num == 1 else "species"}: ")
+                    
+                    # Comprobamos si el campo seleccionario es igual al valor introducido y nos quedamos con el caso de ser cierto
+                    filtrados = []
+                    for character in self.characters:
+                        if num == 1: # si es status
+                            if character.status == filtro:
+                                filtrados.append(character)
+                        else:
+                            if character.species == filtro:
+                                filtrados.append(character)
+                    
+                    # Mostramos los que hemos encontrado o mostramos que no hay coincidencias
+                    if filtrados:
+                        for f in filtrados:
+                            f.mostrarDatos()
+                        print(f"Se han encontrado un total de {len(filtrados)} characters.")
+                    else:
+                        print("No hay resultado con ese filtro.")
+                else:
+                    print("No hay contenido de ese tipo.")
+            case 2: # Locations
+                if self.locations:
+                    num = int(input("Introduce la opción por la que quieres filtrar ( 1 -> Type ('Planet',etc), 2 -> Dimension ('Dimension C-137',etc) ): "))
+                    filtro = input(f"Introduce el valor por el que quieres filtrar en el campo {"type" if num == 1 else "dimension"}: ")
+
+                    # Comprobamos si el campo seleccionario es igual al valor introducido y nos quedamos con el caso de ser cierto
+                    filtrados = []
+                    for location in self.locations:
+                        if num == 1: # si es type
+                            if location.type == filtro:
+                                filtrados.append(location)
+                        else:
+                            if location.dimension == filtro:
+                                filtrados.append(location)
+
+                    # Mostramos los que hemos encontrado o mostramos que no hay coincidencias
+                    if filtrados:
+                        for f in filtrados:
+                            f.mostrarDatos()
+                        print(f"Se han encontrado un total de {len(filtrados)} locations.")
+                    else:
+                        print("No hay resultado con ese filtro.")
+                else:
+                    print("No hay contenido de ese tipo.")
+            case 3: # Episodes
+                if self.episodes:
+                    # No ofrezco opciones de filtrar porque unicamente permito filtrar por si X ID de character ha estado en ese episodio o no
+                    filtro = input(f"Introduce el ID del character por el que quieres filtrar (buscará si ese personaje está en el episodio o no): ")
+
+                    # Comprobamos si el campo seleccionario es igual al valor introducido y nos quedamos con el caso de ser cierto
+                    filtrados = []
+                    for episode in self.episodes:
+                        for character in episode.characters:
+                            # el formato de character es este: "https://rickandmortyapi.com/api/character/1"
+                            # por lo que voy a hacer un split por "/" y me voy a quedar con el último elemento de la lista
+                            contenido = character.split("/")
+                            characterID = contenido[len(contenido)-1]
+
+                            if characterID == filtro:
+                                filtrados.append(episode)
+
+                    # Mostramos los que hemos encontrado o mostramos que no hay coincidencias
+                    if filtrados:
+                        for f in filtrados:
+                            f.mostrarDatos()
+                        print(f"Se han encontrado un total de {len(filtrados)} episodes.")
+                    else:
+                        print("No hay resultado con ese filtro.")
+                else:
+                    print("No hay contenido de ese tipo.")
+            case _:
+                print("Opción no contemplada.")
+
     # Función principal de la clase que maneja toda la lógica de la aplicació
     def iniciar(self):
         opt = -1
@@ -240,9 +326,11 @@ class rickAndMorty:
                             self.visualizarDatos()
                         case 2: # Buscar por ID
                             self.buscarPorID()
-                        case 3: # Ver la cantidad de datos que tenemos por tipo
+                        case 3: # Filtrar datos
+                            self.filtrar()
+                        case 4: # Ver la cantidad de datos que tenemos por tipo
                             self.mostrarCantidades()
-                        case 4: # Volver atrás
+                        case 5: # Volver atrás
                             continue
                 case 5: # Salir de la aplicación
                     continue
